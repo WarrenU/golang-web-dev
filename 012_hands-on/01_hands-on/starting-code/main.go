@@ -18,10 +18,8 @@ type semester struct {
 }
 
 type year struct {
-	AcaYear string
-	Fall    semester
-	Spring  semester
-	Summer  semester
+	AcaYear   string
+	Semesters []semester
 }
 
 var tpl *template.Template
@@ -34,45 +32,65 @@ func main() {
 	years := []year{
 		year{
 			AcaYear: "2020-2021",
-			Fall: semester{
-				Term: "Fall",
-				Courses: []course{
-					course{"CSCI-40", "Introduction to Programming in Go", "4"},
-					course{"CSCI-130", "Introduction to Web Programming with Go", "4"},
-					course{"CSCI-140", "Mobile Apps Using Go", "4"},
+			Semesters: []semester{
+				semester{
+					Term: "Fall",
+					Courses: []course{
+						course{"CSCI-40", "Introduction to Programming in Go", "4"},
+						course{"CSCI-130", "Introduction to Web Programming with Go", "4"},
+						course{"CSCI-140", "Mobile Apps Using Go", "4"},
+					},
 				},
-			},
-			Spring: semester{
-				Term: "Spring",
-				Courses: []course{
-					course{"CSCI-50", "Advanced Go", "5"},
-					course{"CSCI-190", "Advanced Web Programming with Go", "5"},
-					course{"CSCI-191", "Advanced Mobile Apps With Go", "5"},
+				semester{
+					Term: "Winter",
+					Courses: []course{
+						course{"CSCI-10", "Advanced GoGo Dancing", "5"},
+						course{"CSCI-190", "Advanced Web Weaving", "5"},
+						course{"CSCI-191", "Advanced Mobile Robot Cops", "5"},
+					},
+				},
+				semester{
+					Term: "Spring",
+					Courses: []course{
+						course{"CSCI-50", "Advanced Go", "5"},
+						course{"CSCI-190", "Advanced Web Programming with Go", "5"},
+						course{"CSCI-191", "Advanced Mobile Apps With Go", "5"},
+					},
 				},
 			},
 		},
 		year{
 			AcaYear: "2021-2022",
-			Fall: semester{
-				Term: "Fall",
-				Courses: []course{
-					course{"CSCI-40", "Introduction to Programming in Go", "4"},
-					course{"CSCI-130", "Introduction to Web Programming with Go", "4"},
-					course{"CSCI-140", "Mobile Apps Using Go", "4"},
+			Semesters: []semester{
+				semester{
+					Term: "Fall",
+					Courses: []course{
+						course{"CSCI-40", "Introduction to Programming in Go", "4"},
+						course{"CSCI-130", "Introduction to Web Programming with Go", "4"},
+						course{"CSCI-140", "Mobile Apps Using Go", "4"},
+					},
 				},
-			},
-			Spring: semester{
-				Term: "Spring",
-				Courses: []course{
-					course{"CSCI-50", "Advanced Go", "5"},
-					course{"CSCI-190", "Advanced Web Programming with Go", "5"},
-					course{"CSCI-191", "Advanced Mobile Apps With Go", "5"},
+				semester{
+					Term: "Spring",
+					Courses: []course{
+						course{"CSCI-50", "Advanced Go", "5"},
+						course{"CSCI-190", "Advanced Web Programming with Go", "5"},
+						course{"CSCI-191", "Advanced Mobile Apps With Go", "5"},
+					},
+				},
+				semester{
+					Term: "Summer",
+					Courses: []course{
+						course{"CSCI-69", "How to Look Devilishly Good", "5"},
+						course{"CSCI-420", "The History of Snoop Dogg", "5"},
+						course{"CSCI-69420", "Memes and their impact on Society", "5"},
+					},
 				},
 			},
 		},
 	}
 
-	err := tpl.Execute(os.Stdout, nil)
+	err := tpl.Execute(os.Stdout, years)
 	if err != nil {
 		log.Fatalln(err)
 	}
